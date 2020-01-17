@@ -30,11 +30,11 @@ let notes = [
   }
 ];
 
-app.get('/', (request, response) => {
+app.get('/api', (request, response) => {
     response.send('<p>Shehryar Bajwa built this</p>');
 })
 
-app.get('/notes/:id', (request, response) => {
+app.get('/api/notes/:id', (request, response) => {
     const id = Number(request.params.id)
     console.log(id)
     
@@ -49,7 +49,7 @@ app.get('/notes/:id', (request, response) => {
     }
 })
 
-app.get('/notes', (request, response) => {
+app.get('/api/notes', (request, response) => {
     response.json(notes);
 })
 
@@ -68,7 +68,7 @@ const generateId = (note) => {
   return maxId + 1
 }
 
-app.post('/notes', (request, response) => {
+app.post('/api/notes', (request, response) => {
   //Find the largest id in the notes list and take its maximum
   //Then note.id becomes +1 this
 
@@ -94,13 +94,13 @@ app.post('/notes', (request, response) => {
   response.json(note);
 })
 
-app.delete('/notes/:id', (request, response) => {
+app.delete('/api/notes/:id', (request, response) => {
     const id = Number(request.params.id)
     notes = notes.filter(note => note.id !== id)
     response.status(204).end()
 })
 
-app.post('/notes')
+app.post('/api/notes')
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {

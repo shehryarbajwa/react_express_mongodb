@@ -9,14 +9,15 @@
     "watch": "nodemon index.js",
     "build:ui": "rm -rf build && cd ../react_frontend/react_fs/part3/frontend/note_app && npm run build --prod && cp -r build ../react_express_mongodb/",
     "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "author": "Shehryar Bajwa",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.8.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

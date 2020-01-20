@@ -2,11 +2,29 @@ const http = require("http");
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors");
+const mongoose = require('mongoose');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('build'))
+
+
+
+
+const url = `mongodb+srv://noteapp:bajwa123@cluster0-3ykrp.mongodb.net/note-app?retryWrites=true&w=majority`;
+
+mongoose.connect(url, {
+  useNewUrlParser: true
+});
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean
+});
+
+const Note = mongoose.model("Note", noteSchema);
 
 
 let notes = [
@@ -50,10 +68,11 @@ app.get('/api/notes/:id', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-    response.json(notes);
+    Note.find({}).then(notes => {
+      response.json(notes)
+    })
 })
 
-console.log(...notes)
 
 const generateId = (note) => {
   //.map will return an array of numbers

@@ -48,37 +48,23 @@ app.get("/api/notes", (request, response) => {
 
 
 
-app.post("/api/notes", (request, response) => {
-  //Find the largest id in the notes list and take its maximum
-  //Then note.id becomes +1 this
-
-  const body = request.body;
-
-  if (body.content === undefined) {
-    return response.status(400).json({ error: "content missing" });
-  }
-
-  //If the value of important exists it will be set to body.important otherwise false
+app.post('/api/notes', (request, response, next) => {
+  const body = request.body
 
   const note = new Note({
     content: body.content,
     important: body.important || false,
-    date: new Date()
-  });
-  
-  note.save()
-  .then(note => {
-    if (note){
-      response.json(note.toJSON())
-    } else{
-      response.status(404).end()
-    }
+    date: new Date(),
   })
-  .catch(error => {
-    console.log(error)
-    response.status(400).end()
-  })
-});
+
+  note
+    .save()
+    .then(savedNote => savedNote.toJSON())
+    .then(savedAndFormattedNote => {
+      response.json(savedAndFormattedNote)
+    }) 
+    .catch(error => next(error)) 
+})
 
 app.put('/api/notes/:id', (request, response, next) => {
   const body = request.body

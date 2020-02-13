@@ -1,8 +1,9 @@
 post http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pYWxmZyIsImlkIjoiNWUzYjE5M2I4MTM0YjU2Y2E2ZmZlMTAwIiwiaWF0IjoxNTgwOTMxNDUxfQ.oO0bGq9qNdJjRPs4g42K3PYV1p8r1Jv7ECBCLjqoN90
 
 {
-    "content":"Fifth Note",
+    "content":"Nial's first Note",
     "important": true,
-    "userId": "5e3b160137e7546915056329"
+    "userId": "5e3b193b8134b56ca6ffe100"
 }
